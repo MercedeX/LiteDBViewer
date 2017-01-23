@@ -108,7 +108,7 @@ namespace LiteDBViewer
 
         private static bool DetectIs090(string fileName)
         {
-            using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var s = new FileStream(fileName, System.IO.FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 var header = new byte[4096];
                 if (s.Length >= header.Length)
@@ -122,7 +122,7 @@ namespace LiteDBViewer
 
         private static bool DetectIs104(string fileName)
         {
-            using (var s = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var s = new FileStream(fileName, System.IO.FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 var header = new byte[4096];
                 if (s.Length >= header.Length)

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using LiteDB;
+using LiteDB_V6;
 
 namespace LiteDBViewer
 {
@@ -240,21 +241,21 @@ namespace LiteDBViewer
         {
             try
             {
-                txt_query.Text = query;
-                FillDataGridView(null);
-                var result = _db.Run(query);
-                var rows = new List<BsonDocument>();
-                if (result.IsArray)
-                {
-                    rows.AddRange(
-                        result.AsArray.Select(
-                            item => item.IsDocument ? item.AsDocument : new BsonDocument().Add("RESULT", result)));
-                }
-                else
-                {
-                    rows.Add(new BsonDocument().Add("RESULT", result));
-                }
-                FillDataGridView(rows);
+                //txt_query.Text = query;
+                //FillDataGridView(null);
+                //var result = _db.Run(query);
+                //var rows = new List<BsonDocument>();
+                //if (result.IsArray)
+                //{
+                //    rows.AddRange(
+                //        result.AsArray.Select(
+                //            item => item.IsDocument ? item.AsDocument : new BsonDocument().Add("RESULT", result)));
+                //}
+                //else
+                //{
+                //    rows.Add(new BsonDocument().Add("RESULT", result));
+                //}
+                //FillDataGridView(rows);
             }
             catch (Exception ex)
             {
@@ -266,13 +267,13 @@ namespace LiteDBViewer
         {
             var infos = new Dictionary<string, BsonValue>
             {
-                {"DatabaseVersion", new BsonValue((int) _db.DbVersion)},
+                {"DatabaseVersion", new BsonValue((int) _db.Engine.UserVersion)},
                 {"FileName", new BsonValue(_fileName)},
                 {"Encrypted", new BsonValue(_encrypted)}
             };
             foreach (var collectionName in _db.GetCollectionNames())
             {
-                infos.Add($"[{collectionName}] Stats", _db.Run($"db.{collectionName}.stats"));
+                //infos.Add($"[{collectionName}] Stats", _db.GetCollection(collectionName)..Run($"db.{collectionName}.stats"));
             }
             new DocumentViewForm(new BsonDocument(infos)).ShowDialog();
         }
@@ -298,8 +299,8 @@ namespace LiteDBViewer
                         var col = _db.GetCollection(name);
                         foreach (var index in col.GetIndexes().Where(x => x.Field != "_id"))
                         {
-                            writer.WriteLine("db.{0}.ensureIndex {1} {2}", name, index.Field,
-                                JsonSerializer.Serialize(mapper.ToDocument(index.Options)));
+                            //writer.WriteLine("db.{0}.ensureIndex {1} {2}", name, index.Field,
+                            //    JsonSerializer.Serialize(mapper.ToDocument( )));
                         }
                         foreach (var doc in col.Find(Query.All()))
                         {
