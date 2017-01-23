@@ -14,23 +14,27 @@ namespace LiteDBViewer
     internal partial class MainForm : Form
     {
         private const int CollectionsResultLimit = 100;
-        private readonly bool _encrypted;
-        private readonly string _fileName;
+        private bool _encrypted;
+        private string _fileName;
 
         private readonly Dictionary<BsonDocument, LiteFileInfo> _fileStorageBinding =
             new Dictionary<BsonDocument, LiteFileInfo>();
 
         private LiteDatabase _db;
 
-        public MainForm(string fileName, string password = null)
+        public MainForm()
+        {
+            //OpenDatabase(fileName, password);
+            InitializeComponent();
+        }
+
+        private void OpenDatabase(string filename, string password)
         {
             _encrypted = !string.IsNullOrWhiteSpace(password);
-            _fileName = Path.GetFullPath(fileName);
+            _fileName = Path.GetFullPath(filename);
             _db = new LiteDatabase(_encrypted ? $"password=\"{password}\";filename=\"{_fileName}\"" : _fileName);
 
-            InitializeComponent();
-
-            txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
+            //txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
             foreach (var collection in _db.GetCollectionNames())
             {
                 if (!collection.Equals("_chunks") && !collection.Equals("_files"))
@@ -39,6 +43,12 @@ namespace LiteDBViewer
                 }
             }
             lb_Collections.Items.Add("[FILESTORAGE]");
+
+            lb_Collections.Items.Clear();
+            foreach (var item in _db.GetCollectionNames())
+            {
+                lb_Collections.Items.Add(item);
+            } 
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -315,5 +325,29 @@ namespace LiteDBViewer
                 MessageBox.Show(ex.Message, @"Dumping Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void FileExit_Click(object sender, EventArgs e)
+        {
+            Close();
+            Application.Exit();
+        }
+
+        private void Open_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog
+            {
+                CheckFileExists = true,
+                Multiselect = true,
+                RestoreDirectory = true,
+                Title =
+                    $@"Open LiteDB Database File - LiteDB Viewer v{
+                        Assembly.GetExecutingAssembly().GetName().Version}",
+                Filter = $"LiteDB v{Assembly.GetAssembly(typeof(LiteDatabase)).GetName().Version.Major} Files|*.*"
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+                OpenDatabase(ofd.FileName, string.Empty);
+        }
+
     }
 }

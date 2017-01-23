@@ -16,168 +16,220 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.lb_Collections = new System.Windows.Forms.ListBox();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.txt_query = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txt_filename = new System.Windows.Forms.TextBox();
-            this.btn_info = new System.Windows.Forms.Button();
-            this.btn_export = new System.Windows.Forms.Button();
+            this.lb_Collections = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileInformation = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.FileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            this.menuStrip1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lb_Collections
-            // 
-            this.lb_Collections.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.lb_Collections.Font = new System.Drawing.Font("Courier New", 9F);
-            this.lb_Collections.FormattingEnabled = true;
-            this.lb_Collections.ItemHeight = 15;
-            this.lb_Collections.Location = new System.Drawing.Point(12, 117);
-            this.lb_Collections.Name = "lb_Collections";
-            this.lb_Collections.Size = new System.Drawing.Size(170, 259);
-            this.lb_Collections.TabIndex = 3;
-            this.lb_Collections.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
-            // 
-            // dataGridView
-            // 
-            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(188, 117);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(481, 259);
-            this.dataGridView.TabIndex = 5;
-            this.dataGridView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
-            this.dataGridView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView_MouseClick);
             // 
             // txt_query
             // 
             this.txt_query.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_query.Font = new System.Drawing.Font("Courier New", 9F);
-            this.txt_query.Location = new System.Drawing.Point(12, 71);
+            this.txt_query.Location = new System.Drawing.Point(3, 3);
             this.txt_query.Name = "txt_query";
-            this.txt_query.Size = new System.Drawing.Size(657, 21);
+            this.txt_query.Size = new System.Drawing.Size(723, 21);
             this.txt_query.TabIndex = 1;
             this.txt_query.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
-            // label1
+            // tableLayoutPanel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 55);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Query:";
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.dataGridView, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lb_Collections, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 29);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 3.555556F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 96.44444F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(723, 450);
+            this.tableLayoutPanel1.TabIndex = 10;
             // 
-            // label2
+            // dataGridView
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Collections:";
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.Location = new System.Drawing.Point(203, 19);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.ReadOnly = true;
+            this.dataGridView.Size = new System.Drawing.Size(537, 428);
+            this.dataGridView.TabIndex = 9;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(185, 101);
+            this.label3.Location = new System.Drawing.Point(203, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 4;
+            this.label3.TabIndex = 8;
             this.label3.Text = "Result:";
             // 
-            // label4
+            // lb_Collections
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Filename:";
+            this.lb_Collections.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lb_Collections.Font = new System.Drawing.Font("Courier New", 9F);
+            this.lb_Collections.FormattingEnabled = true;
+            this.lb_Collections.ItemHeight = 15;
+            this.lb_Collections.Location = new System.Drawing.Point(3, 19);
+            this.lb_Collections.Name = "lb_Collections";
+            this.lb_Collections.Size = new System.Drawing.Size(194, 428);
+            this.lb_Collections.TabIndex = 7;
+            this.lb_Collections.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
-            // txt_filename
+            // label2
             // 
-            this.txt_filename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_filename.BackColor = System.Drawing.SystemColors.Window;
-            this.txt_filename.Font = new System.Drawing.Font("Courier New", 9F);
-            this.txt_filename.Location = new System.Drawing.Point(12, 28);
-            this.txt_filename.Name = "txt_filename";
-            this.txt_filename.ReadOnly = true;
-            this.txt_filename.Size = new System.Drawing.Size(608, 21);
-            this.txt_filename.TabIndex = 7;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Collections:";
             // 
-            // btn_info
+            // menuStrip1
             // 
-            this.btn_info.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_info.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_info.Location = new System.Drawing.Point(626, 28);
-            this.btn_info.Name = "btn_info";
-            this.btn_info.Size = new System.Drawing.Size(20, 21);
-            this.btn_info.TabIndex = 8;
-            this.btn_info.Text = "i";
-            this.btn_info.UseVisualStyleBackColor = true;
-            this.btn_info.Click += new System.EventHandler(this.Info_Click);
+            this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.menuStrip1.Size = new System.Drawing.Size(729, 24);
+            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // btn_export
+            // fileToolStripMenuItem
             // 
-            this.btn_export.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_export.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_export.Location = new System.Drawing.Point(652, 28);
-            this.btn_export.Name = "btn_export";
-            this.btn_export.Size = new System.Drawing.Size(20, 21);
-            this.btn_export.TabIndex = 9;
-            this.btn_export.Text = ">";
-            this.btn_export.UseVisualStyleBackColor = true;
-            this.btn_export.Click += new System.EventHandler(this.Export_Click);
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileOpen,
+            this.FileInformation,
+            this.FileExport,
+            this.toolStripMenuItem1,
+            this.FileExit});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // FileOpen
+            // 
+            this.FileOpen.Name = "FileOpen";
+            this.FileOpen.Size = new System.Drawing.Size(128, 22);
+            this.FileOpen.Text = "&Open ...";
+            this.FileOpen.Click += new System.EventHandler(this.Open_Click);
+            // 
+            // FileInformation
+            // 
+            this.FileInformation.Name = "FileInformation";
+            this.FileInformation.Size = new System.Drawing.Size(128, 22);
+            this.FileInformation.Text = "&Informaton";
+            this.FileInformation.Click += new System.EventHandler(this.Info_Click);
+            // 
+            // FileExport
+            // 
+            this.FileExport.Name = "FileExport";
+            this.FileExport.Size = new System.Drawing.Size(128, 22);
+            this.FileExport.Text = "&Export";
+            this.FileExport.Click += new System.EventHandler(this.Export_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(125, 6);
+            // 
+            // FileExit
+            // 
+            this.FileExit.Name = "FileExit";
+            this.FileExit.Size = new System.Drawing.Size(128, 22);
+            this.FileExit.Text = "E&xit";
+            this.FileExit.Click += new System.EventHandler(this.FileExit_Click);
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.txt_query, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.statusStrip1, 0, 2);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 3;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5.5666F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 94.4334F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(729, 503);
+            this.tableLayoutPanel2.TabIndex = 12;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(0, 482);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(729, 21);
+            this.statusStrip1.TabIndex = 11;
+            this.statusStrip1.Text = "statusStrip1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 387);
-            this.Controls.Add(this.btn_export);
-            this.Controls.Add(this.btn_info);
-            this.Controls.Add(this.txt_filename);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txt_query);
-            this.Controls.Add(this.dataGridView);
-            this.Controls.Add(this.lb_Collections);
+            this.ClientSize = new System.Drawing.Size(729, 527);
+            this.Controls.Add(this.tableLayoutPanel2);
+            this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(700, 375);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LiteDB Viewer v{APPVERSION} - LiteDB v{DBVERSION}";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox lb_Collections;
-        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.TextBox txt_query;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txt_filename;
-        private System.Windows.Forms.Button btn_info;
-        private System.Windows.Forms.Button btn_export;
+        private System.Windows.Forms.ListBox lb_Collections;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FileExport;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem FileExit;
+        private System.Windows.Forms.ToolStripMenuItem FileInformation;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripMenuItem FileOpen;
     }
 }
 

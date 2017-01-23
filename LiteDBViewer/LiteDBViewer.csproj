@@ -35,7 +35,8 @@
     <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>LiteDBViewer.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JsonPrettyPrinterPlus, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
