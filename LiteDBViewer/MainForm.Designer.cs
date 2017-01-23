@@ -15,13 +15,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.txt_query = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
-            this.lb_Collections = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.CategoryView = new System.Windows.Forms.TreeView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileOpen = new System.Windows.Forms.ToolStripMenuItem();
@@ -31,6 +32,7 @@
             this.FileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -55,8 +57,8 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.dataGridView, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lb_Collections, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.CategoryView, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 29);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -85,18 +87,6 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Result:";
             // 
-            // lb_Collections
-            // 
-            this.lb_Collections.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lb_Collections.Font = new System.Drawing.Font("Courier New", 9F);
-            this.lb_Collections.FormattingEnabled = true;
-            this.lb_Collections.ItemHeight = 15;
-            this.lb_Collections.Location = new System.Drawing.Point(3, 19);
-            this.lb_Collections.Name = "lb_Collections";
-            this.lb_Collections.Size = new System.Drawing.Size(194, 428);
-            this.lb_Collections.TabIndex = 7;
-            this.lb_Collections.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -105,6 +95,18 @@
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Collections:";
+            // 
+            // CategoryView
+            // 
+            this.CategoryView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CategoryView.ImageIndex = 0;
+            this.CategoryView.ImageList = this.imageList1;
+            this.CategoryView.Location = new System.Drawing.Point(3, 19);
+            this.CategoryView.Name = "CategoryView";
+            this.CategoryView.SelectedImageIndex = 0;
+            this.CategoryView.Size = new System.Drawing.Size(194, 428);
+            this.CategoryView.TabIndex = 10;
+            this.CategoryView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CategoryView_AfterSelect);
             // 
             // menuStrip1
             // 
@@ -188,6 +190,12 @@
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "table.png");
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,7 +227,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox lb_Collections;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -230,6 +237,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripMenuItem FileOpen;
+        private System.Windows.Forms.TreeView CategoryView;
+        private System.Windows.Forms.ImageList imageList1;
     }
 }
 

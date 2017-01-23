@@ -35,20 +35,30 @@ namespace LiteDBViewer
             _db = new LiteDatabase(_encrypted ? $"password=\"{password}\";filename=\"{_fileName}\"" : _fileName);
 
             //txt_filename.Text = _fileName + (_encrypted ? " [ENCRYPTED]" : string.Empty);
+
+            CategoryView.Nodes.Clear();
+            var node = new TreeNode("Tables");
+            node.Tag = null;
             foreach (var collection in _db.GetCollectionNames())
             {
                 if (!collection.Equals("_chunks") && !collection.Equals("_files"))
                 {
-                    lb_Collections.Items.Add(collection);
+                    var child = new TreeNode(collection);
+                    child.Tag = collection;
+                    node.Nodes.Add(child);
                 }
             }
-            lb_Collections.Items.Add("[FILESTORAGE]");
+            CategoryView.Nodes.Add(node);
 
-            lb_Collections.Items.Clear();
-            foreach (var item in _db.GetCollectionNames())
-            {
-                lb_Collections.Items.Add(item);
-            } 
+        
+            CategoryView.Nodes.Add(new TreeNode("FileStorage"));
+            //lb_Collections.Items.Add("[FILESTORAGE]");
+
+            //lb_Collections.Items.Clear();
+            //foreach (var item in _db.GetCollectionNames())
+            //{
+            //    lb_Collections.Items.Add(item);
+            //} 
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -58,33 +68,33 @@ namespace LiteDBViewer
             Activate();
         }
 
-        private void listBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            _fileStorageBinding.Clear();
-            if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]") &&
-                !lb_Collections.SelectedItem.Equals("[FILESTORAGE]"))
-            {
-                FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString())
-                    .Find(Query.All(), 0, CollectionsResultLimit));
-                txt_query.Text = $"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
-            }
-            else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
-            {
-                foreach (var fileInfo in _db.FileStorage.FindAll())
-                {
-                    _fileStorageBinding.Add(fileInfo.AsDocument, fileInfo);
-                }
-                FillDataGridView(_fileStorageBinding.Keys.ToArray());
-                txt_query.Text = @"fs.find";
-            }
-        }
+        //private void listBox_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    _fileStorageBinding.Clear();
+        //    if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]") &&
+        //        !lb_Collections.SelectedItem.Equals("[FILESTORAGE]"))
+        //    {
+        //        FillDataGridView(_db.GetCollection(lb_Collections.SelectedItem.ToString())
+        //            .Find(Query.All(), 0, CollectionsResultLimit));
+        //        txt_query.Text = $"db.{lb_Collections.SelectedItem}.find limit {CollectionsResultLimit}";
+        //    }
+        //    else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
+        //    {
+        //        foreach (var fileInfo in _db.FileStorage.FindAll())
+        //        {
+        //            _fileStorageBinding.Add(fileInfo.AsDocument, fileInfo);
+        //        }
+        //        FillDataGridView(_fileStorageBinding.Keys.ToArray());
+        //        txt_query.Text = @"fs.find";
+        //    }
+        //}
 
         public void FillDataGridView(IEnumerable<BsonDocument> documents)
         {
-            if (lb_Collections.Items.Contains("[QUERY]"))
-            {
-                lb_Collections.Items.Remove("[QUERY]");
-            }
+            //if (lb_Collections.Items.Contains("[QUERY]"))
+            //{
+            //    lb_Collections.Items.Remove("[QUERY]");
+            //}
             dataGridView.DataSource = null;
             if (documents != null)
             {
@@ -225,11 +235,11 @@ namespace LiteDBViewer
             {
                 e.Handled = true;
                 RunQuery(txt_query.Text);
-                if (!lb_Collections.Items.Contains("[QUERY]"))
-                {
-                    lb_Collections.Items.Add("[QUERY]");
-                }
-                lb_Collections.SelectedItem = "[QUERY]";
+                //if (!lb_Collections.Items.Contains("[QUERY]"))
+                //{
+                //    lb_Collections.Items.Add("[QUERY]");
+                //}
+                //lb_Collections.SelectedItem = "[QUERY]";
             }
         }
 
@@ -349,5 +359,29 @@ namespace LiteDBViewer
                 OpenDatabase(ofd.FileName, string.Empty);
         }
 
+        private void CategoryView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var name = e.Node.Tag as string;
+            if (!string.IsNullOrEmpty(name))
+            {
+                _fileStorageBinding.Clear();
+                //if (lb_Collections.SelectedItem != null && !lb_Collections.SelectedItem.Equals("[QUERY]") &&
+                //    !lb_Collections.SelectedItem.Equals("[FILESTORAGE]"))
+                {
+                    FillDataGridView(_db.GetCollection(name)
+                        .Find(Query.All(), 0, CollectionsResultLimit));
+                    txt_query.Text = $"db.{name}.find limit {CollectionsResultLimit}";
+                }
+                //else if (lb_Collections.SelectedItem?.Equals("[FILESTORAGE]") == true)
+                //{
+                //    foreach (var fileInfo in _db.FileStorage.FindAll())
+                //    {
+                //        _fileStorageBinding.Add(fileInfo.AsDocument, fileInfo);
+                //    }
+                //    FillDataGridView(_fileStorageBinding.Keys.ToArray());
+                //    txt_query.Text = @"fs.find";
+                //}
+            }
+        }
     }
 }
