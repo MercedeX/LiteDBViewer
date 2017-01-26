@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,6 +47,10 @@
     </Reference>
     <Reference Include="LiteDB, Version=3.0.0.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27, processorArchitecture=MSIL">
       <HintPath>..\packages\LiteDB.3.0.0\lib\net35\LiteDB.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SourceGrid, Version=4.40.4580.29115, Culture=neutral, PublicKeyToken=df6f5e538749e85d, processorArchitecture=MSIL">
+      <HintPath>..\packages\SourceGrid.4.4.0\lib\net35\SourceGrid.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

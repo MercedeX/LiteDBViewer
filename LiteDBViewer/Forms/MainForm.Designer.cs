@@ -30,8 +30,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.CategoryView = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblRows = new System.Windows.Forms.Label();
+            this.lvData = new System.Windows.Forms.ListView();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.messageBar = new System.Windows.Forms.ToolStripStatusLabel();
             this.databaseCMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -43,7 +43,6 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.statusBar.SuspendLayout();
             this.databaseCMenu.SuspendLayout();
             this.SuspendLayout();
@@ -178,8 +177,8 @@
             // 
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.Controls.Add(this.dataGridView, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label3, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lblRows, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lvData, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -189,24 +188,25 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(718, 450);
             this.tableLayoutPanel3.TabIndex = 0;
             // 
-            // dataGridView
+            // lblRows
             // 
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(3, 20);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.Size = new System.Drawing.Size(712, 427);
-            this.dataGridView.TabIndex = 11;
+            this.lblRows.AutoSize = true;
+            this.lblRows.Location = new System.Drawing.Point(3, 0);
+            this.lblRows.Name = "lblRows";
+            this.lblRows.Size = new System.Drawing.Size(40, 13);
+            this.lblRows.TabIndex = 8;
+            this.lblRows.Text = "Result:";
             // 
-            // label3
+            // lvData
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Result:";
+            this.lvData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvData.FullRowSelect = true;
+            this.lvData.Location = new System.Drawing.Point(3, 20);
+            this.lvData.Name = "lvData";
+            this.lvData.Size = new System.Drawing.Size(712, 427);
+            this.lvData.TabIndex = 9;
+            this.lvData.UseCompatibleStateImageBehavior = false;
+            this.lvData.View = System.Windows.Forms.View.Details;
             // 
             // statusBar
             // 
@@ -265,7 +265,6 @@
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.statusBar.ResumeLayout(false);
             this.statusBar.PerformLayout();
             this.databaseCMenu.ResumeLayout(false);
@@ -289,11 +288,11 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TreeView CategoryView;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblRows;
         internal System.Windows.Forms.ToolStripStatusLabel messageBar;
         private System.Windows.Forms.ContextMenuStrip databaseCMenu;
         private System.Windows.Forms.ToolStripMenuItem CloseDatabaseMenu;
+        private System.Windows.Forms.ListView lvData;
     }
 }
 
