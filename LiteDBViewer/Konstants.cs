@@ -8,6 +8,8 @@ namespace LiteDBViewer
 {
     internal sealed class Konstants
     {
+        public static string DatabaseNodeTitle => "Databases";
+
         public static string IniFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{System.Diagnostics.Process.GetCurrentProcess().ProcessName}.ini");
     }
 }

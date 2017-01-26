@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -54,8 +55,14 @@ namespace LiteDBViewer
 
         public MainForm()
         {
-            //OpenDatabase(fileName, password);
             InitializeComponent();
+
+            CategoryView.AfterSelect += Node_Selected;
+            CategoryView.NodeMouseClick += (source, arg) => SelectedNode = arg.Node;
+            CategoryView.Nodes.Add(new TreeNode(Konstants.DatabaseNodeTitle, 0, 0));
+            SelectedNode = CategoryView.Nodes[0];
+
+            SetText4User("Waiting for user input ...");
         }
 
         //private void OpenDatabase(string filename, string password)
@@ -80,7 +87,7 @@ namespace LiteDBViewer
         //    }
         //    CategoryView.Nodes.Add(node);
 
-        
+
         //    CategoryView.Nodes.Add(new TreeNode("FileStorage"));
         //    //lb_Collections.Items.Add("[FILESTORAGE]");
 
@@ -137,7 +144,7 @@ namespace LiteDBViewer
                             {
                                 if (!dt.Columns.Contains(property.Key))
                                 {
-                                    dt.Columns.Add(new DataColumn(property.Key, typeof (string)));
+                                    dt.Columns.Add(new DataColumn(property.Key, typeof(string)));
                                 }
                                 switch (property.Value.Type)
                                 {
@@ -169,6 +176,13 @@ namespace LiteDBViewer
                 }
                 dataGridView.DataSource = dt;
             }
+        }
+
+        private void SetText4User(string text)
+        {
+            messageBar.Text =text;
+            statusBar.Invalidate();
+            statusBar.Refresh();
         }
 
         private void dataGridView_MouseClick(object sender, MouseEventArgs e)
@@ -339,8 +353,7 @@ namespace LiteDBViewer
                 using (var writer = File.CreateText(sfd.FileName))
                 {
                     var mapper = new BsonMapper().UseCamelCase();
-                    var db = GetCurrentDatabase();
-                    foreach (var col in db.Tables)
+                    foreach (var col in SelectedDatabase.Tables)
                     {
                         writer.WriteLine("-- Collection '{0}'", col.Name);
                         foreach (var index in col.GetIndexes().Where(x => x.Field != "_id"))
@@ -362,17 +375,22 @@ namespace LiteDBViewer
             }
         }
 
-        private DatabaseWrapper GetCurrentDatabase()
+        private DatabaseWrapper SelectedDatabase
         {
-            DatabaseWrapper ret = null;
-            if(CategoryView.SelectedNode.Tag != null)
+            get
             {
-                var info = (NodeInfo)CategoryView.SelectedNode.Tag;
-                if(info.type!= NodeType.Unknown)
-                    ret = _databases.FirstOrDefault(x => x.Item1 == info.databaseId).Item2;
+                DatabaseWrapper ret = null;
+                if (CategoryView.SelectedNode.Tag != null)
+                {
+                    var info = (NodeInfo) CategoryView.SelectedNode.Tag;
+                    if (info.type != NodeType.Unknown)
+                        ret = _databases.FirstOrDefault(x => x.Item1 == info.databaseId).Item2;
+                }
+                return ret;
             }
-            return ret;
         }
+
+        public TreeNode SelectedNode { get; private set; }
 
         private void FileExit_Click(object sender, EventArgs e)
         {
@@ -390,12 +408,13 @@ namespace LiteDBViewer
                     path = tmp;
                 else
                     ini.Set("LastLocation", path);
+
             }
 
             var ofd = new OpenFileDialog
             {
                 CheckFileExists = true,
-                Multiselect = true,
+                Multiselect = false,
                 RestoreDirectory = true,
                 Title =
                     $@"Open LiteDB Database File - LiteDB Viewer v{
@@ -410,12 +429,60 @@ namespace LiteDBViewer
                 using (var ini = new IniFile(Konstants.IniFilePath))
                     ini.Set("LastLocation", Path.GetDirectoryName(ofd.FileName));
 
-                var wrapper = new DatabaseWrapper(ofd.FileName);
-                _databases.Add(new Tuple<int, DatabaseWrapper>(_databases.Count + 1, wrapper));
-
-                Refresh();
+                LoadDatabase(ofd.FileName);
             }
-              //  OpenDatabase(ofd.FileName, string.Empty);
+        }
+
+        private void LoadDatabase(string file)
+        {
+            var worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += (obj, arg) =>
+            {
+                var source = obj as BackgroundWorker;
+
+                try
+                {
+                    source.ReportProgress(0, $"Loading the database {file}...");
+
+                    var id = (int) arg.Argument;
+                    var db = new DatabaseWrapper(file);
+
+                    source.ReportProgress(50, $"File loaded, displaying the contents...");
+                    var node = CreateNode(id, db);
+
+                    arg.Result = new KeyValuePair<TreeNode, object>(node,
+                        new Tuple<int, DatabaseWrapper>(id, db)
+                        );
+
+                    source.ReportProgress(100, $"Done...");
+                }
+                catch (Exception ex)
+                {
+                    source.ReportProgress(0, $"Failed to load file {file}");
+                    arg.Result = null;
+                }
+            };
+
+            worker.ProgressChanged += (obj, arg) => SetText4User(arg.UserState.ToString());
+            worker.RunWorkerCompleted += (obj, arg) =>
+            {
+                if (arg.Error == null && arg.Result != null)
+                {
+                    var ret = (KeyValuePair<TreeNode, object>) arg.Result;
+                    var item = ret.Value as Tuple<int, DatabaseWrapper>;
+                    _databases.Add(item);
+
+                    var root = CategoryView.Nodes[0];
+                    if (root != null)
+                    {
+                        root.Nodes.Add(ret.Key);
+                        if (!root.IsExpanded)
+                            root.Expand();
+                    }
+                }
+            };
+            worker.RunWorkerAsync(_databases.Count + 1);
         }
 
         private void Node_Selected(object sender, TreeViewEventArgs e)
@@ -424,22 +491,19 @@ namespace LiteDBViewer
             {
                 var info = (NodeInfo) e.Node.Tag;
                 var db = _databases.FirstOrDefault(x => x.Item1 == info.databaseId).Item2;
+                LiteCollection<BsonDocument> table = null;
 
                 switch (info.type)
                 {
                     case NodeType.Table:
-                        FillDataGridView(db
-                            .Tables
-                            .FirstOrDefault(x => string.Compare(x.Name, info.collection, true) == 0)
-                            .Find(Query.All(), limit: 100)
-                            );
+                        table = db.Tables.FirstOrDefault(x => string.Compare(x.Name, info.collection, true) == 0);
+                        SetText4User($"Row count: {table.Count()}, " + (table.Count()>0? "Displaying first 100 rows only" : "No records to display"));
+                        FillDataGridView(table.Find(Query.All(), limit: 100));
                         break;
                     case NodeType.FileStorage:
-                        FillDataGridView(db
-                            .Tables
-                            .FirstOrDefault(x => string.Compare(x.Name, "FileStorage", true) == 0)
-                            .Find(Query.All(), limit: 100)
-                            );
+                        table = db.Tables.FirstOrDefault(x => string.Compare(x.Name, "FileStorage", true) == 0);
+                        SetText4User($"Row count: {table.Count()}, " + (table.Count() > 0 ? "Displaying first 100 rows only" : "No records to display"));
+                        FillDataGridView(table.Find(Query.All(), limit: 100));
                         break;
                 }
             }
@@ -450,29 +514,46 @@ namespace LiteDBViewer
             base.Refresh();
 
             CategoryView.Nodes.Clear();
-            var databasesNode = new TreeNode("Databases", 0, 0);
+            var databasesNode = new TreeNode(Konstants.DatabaseNodeTitle, 0, 0);
             foreach(var db in _databases)
             {
-                var node = GetDatabaseNode(db.Item1, db.Item2);
+                var node = CreateNode(db.Item1, db.Item2);
                 databasesNode.Nodes.Add(node);
             }
             CategoryView.Nodes.Add(databasesNode);
             CategoryView.Select();
+
+            CategoryView.Nodes[0].Expand();
         }
 
-        private TreeNode GetDatabaseNode(int id, DatabaseWrapper db)
+        private TreeNode CreateNode(int id, DatabaseWrapper db)
         {
-            var root = new TreeNode(db.Properties.fileName);
+            var root = new TreeNode(db.Properties.fileName, 1, 1);
             root.Tag = new NodeInfo(id);
+            root.ContextMenuStrip = databaseCMenu;
 
             foreach (var tb in db.Tables)
             {
-                var tNode = new TreeNode(tb.Name);
+                var tNode = new TreeNode(tb.Name, 2, 2);
                 tNode.Tag = new NodeInfo(id, tb.Name);
                 root.Nodes.Add(tNode);
             }
 
             return root;
+        }
+
+        private void CloseDatabaseMenu_Click(object sender, EventArgs e)
+        {
+            if (SelectedNode.Tag != null)
+            {
+                var info = (NodeInfo) SelectedNode.Tag;
+                if (info.type != NodeType.Unknown)
+                {
+                    var item = _databases.FirstOrDefault(x => x.Item1 == info.databaseId);
+                    _databases.Remove(item);
+                }
+                Refresh();
+            }
         }
     }
 }
