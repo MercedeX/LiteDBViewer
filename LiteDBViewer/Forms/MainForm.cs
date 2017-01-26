@@ -62,6 +62,28 @@ namespace LiteDBViewer
             CategoryView.Nodes.Add(new TreeNode(Konstants.DatabaseNodeTitle, 0, 0));
             SelectedNode = CategoryView.Nodes[0];
 
+            using(var ini = new IniFile(Konstants.IniFilePath))
+            {
+                var x = ini.Get("left", string.Empty, 0);
+                var y = ini.Get("top", string.Empty, 0);
+                var width = ini.Get("width", string.Empty, 0);
+                var height = ini.Get("height", string.Empty, 0);
+
+                if ((x > 0 && y>0) && 
+                    (x < Screen.PrimaryScreen.WorkingArea.Width && y < Screen.PrimaryScreen.WorkingArea.Height)
+                 )
+                {
+                    this.StartPosition = FormStartPosition.Manual;
+                    this.Left = x;
+                    this.Top = y;
+                }
+                if (width > 0 && height > 0)
+                {
+                    this.Width = width;
+                    this.Height = height;
+                }
+            }
+
             SetText4User("Waiting for user input ...");
         }
 
@@ -553,6 +575,17 @@ namespace LiteDBViewer
                     _databases.Remove(item);
                 }
                 Refresh();
+            }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            using (var ini = new IniFile(Konstants.IniFilePath))
+            {
+                ini.Set("left", this.Left);
+                ini.Set("top", this.Top);
+                ini.Set("width", this.Width);
+                ini.Set("height", this.Height);
             }
         }
     }
