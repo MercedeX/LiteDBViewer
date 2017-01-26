@@ -32,7 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>logo.ico</ApplicationIcon>
+    <ApplicationIcon>resources\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -58,62 +58,65 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayViewForm.cs">
+    <Compile Include="DatabaseWrapper.cs" />
+    <Compile Include="Forms\ArrayViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ArrayViewForm.Designer.cs">
+    <Compile Include="Forms\ArrayViewForm.Designer.cs">
       <DependentUpon>ArrayViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BinaryViewForm.cs">
+    <Compile Include="Forms\BinaryViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BinaryViewForm.Designer.cs">
+    <Compile Include="Forms\BinaryViewForm.Designer.cs">
       <DependentUpon>BinaryViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DocumentViewForm.cs">
+    <Compile Include="Forms\DocumentViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DocumentViewForm.Designer.cs">
+    <Compile Include="Forms\DocumentViewForm.Designer.cs">
       <DependentUpon>DocumentViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IniFile.cs" />
+    <Compile Include="Konstants.cs" />
     <Compile Include="LiteDataRow.cs" />
     <Compile Include="LiteDataTable.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MultiFormApplicationContext.cs" />
-    <Compile Include="PasswordForm.cs">
+    <Compile Include="Forms\PasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PasswordForm.Designer.cs">
+    <Compile Include="Forms\PasswordForm.Designer.cs">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringViewForm.cs">
+    <Compile Include="Forms\StringViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StringViewForm.Designer.cs">
+    <Compile Include="Forms\StringViewForm.Designer.cs">
       <DependentUpon>StringViewForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ArrayViewForm.resx">
+    <EmbeddedResource Include="Forms\ArrayViewForm.resx">
       <DependentUpon>ArrayViewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BinaryViewForm.resx">
+    <EmbeddedResource Include="Forms\BinaryViewForm.resx">
       <DependentUpon>BinaryViewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DocumentViewForm.resx">
+    <EmbeddedResource Include="Forms\DocumentViewForm.resx">
       <DependentUpon>DocumentViewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PasswordForm.resx">
+    <EmbeddedResource Include="Forms\PasswordForm.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -125,7 +128,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="StringViewForm.resx">
+    <EmbeddedResource Include="Forms\StringViewForm.resx">
       <DependentUpon>StringViewForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -140,7 +143,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="logo.ico" />
+    <Content Include="resources\logo.ico" />
+    <Content Include="resources\table.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
